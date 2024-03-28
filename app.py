@@ -19,9 +19,11 @@ app = Dash(__name__, external_stylesheets=stylesheets)
 server = app.server
 
 
-company_size_options = [
-    {"label": size, "value": size} for size in df["Company Size"].unique()
-]
+company_size_options = sorted(
+    [{"label": size, "value": size} for size in df["Company Size"].unique()],
+    key=lambda x: x["label"],
+    reverse=True,
+)
 
 # create a dictionary to map the index to the formatted year
 work_years_format = {
@@ -58,11 +60,7 @@ app.layout = html.Div(
                         dcc.Dropdown(
                             id="company_size_dropdown",
                             options=company_size_options,
-                            value=[
-                                company_size_options[1]["value"],
-                                company_size_options[2]["value"],
-                                company_size_options[0]["value"],
-                            ],
+                            value=[size["value"] for size in company_size_options],
                             multi=True,
                         ),
                     ],
