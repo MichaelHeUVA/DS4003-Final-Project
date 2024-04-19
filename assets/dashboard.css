@@ -1,12 +1,13 @@
-.center {
+.center90 {
     text-align: center;
-    display: flex;
     justify-content: center;
+    width: 90%;
+    margin: auto;
 }
 
 .graph-container {
     display: flex;
-    width: 33%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -17,4 +18,28 @@
     width: 100%;
     height: 10%;
     background-color: black;
+}
+
+.pie-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.pie-chart {
+    width: 30%;
+}
+
+.year-container {
+    background-color: white;
+    margin: auto;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    bottom: 0px;
+    width: 100%;
+    z-index: 100;
 }
