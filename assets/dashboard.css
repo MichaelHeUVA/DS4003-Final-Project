@@ -14,12 +14,6 @@
     margin: auto;
 }
 
-.graph {
-    width: 100%;
-    height: 10%;
-    background-color: black;
-}
-
 .pie-chart-container {
     display: flex;
     justify-content: center;
@@ -33,7 +27,7 @@
 }
 
 .year-container {
-    background-color: white;
+    background: rgba(9, 9, 121, 1);
     margin: auto;
     position: fixed;
     justify-content: center;
@@ -42,4 +36,33 @@
     bottom: 0px;
     width: 100%;
     z-index: 100;
+}
+
+body {
+    background: rgb(2, 0, 36);
+    background: radial-gradient(
+        circle,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(9, 9, 121, 1) 45%,
+        rgba(0, 212, 255, 1) 100%
+    );
+    color: white;
+}
+
+.black {
+    color: black;
+    background-color: black;
+    background-image: black;
+}
+
+.about {
+    height: 1000px;
+}
+
+.margin {
+    margin-bottom: 100px;
+}
+
+.white {
+    color: white;
 }

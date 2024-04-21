@@ -65,27 +65,59 @@ def interpolate_years(year_slider):
     return work_years[year_slider]["label"]
 
 
+tab_selected_style = {
+    "borderTop": "1px solid #d6d6d6",
+    "borderBottom": "1px solid #d6d6d6",
+    "backgroundColor": "#056ab9",
+    "color": "white",
+    "padding": "6px",
+    "fontWeight": "bold",
+}
+
+tabs_styles = {"height": "44px"}
+
+tab_style = {
+    "borderBottom": "1px solid #d6d6d6",
+    "padding": "6px",
+}
+
 # app layout
 app.layout = html.Div(
     [
-        html.Div([html.H1("Salary Analysis of Data Scientists")]),
+        html.Div([html.H1("Salary Analysis of Data Scientists", className="white")]),
         dcc.Tabs(
             id="tabs-example-graph",
             value="graphs",
             children=[
-                dcc.Tab(label="Graphs", value="graphs"),
-                dcc.Tab(label="Data Table", value="datatable"),
-                dcc.Tab(label="About", value="about"),
+                dcc.Tab(
+                    label="Graphs",
+                    value="graphs",
+                    style=tab_style,
+                    selected_style=tab_selected_style,
+                ),
+                dcc.Tab(
+                    label="Data Table",
+                    value="datatable",
+                    style=tab_style,
+                    selected_style=tab_selected_style,
+                ),
+                dcc.Tab(
+                    label="About",
+                    value="about",
+                    style=tab_style,
+                    selected_style=tab_selected_style,
+                ),
             ],
-            className="",
+            className="black",
+            style=tabs_styles,
         ),
-        html.Div(id="tabs-content-example-graph"),
-    ]
+        html.Div(id="tabs-content"),
+    ],
 )
 
 
 @callback(
-    Output("tabs-content-example-graph", "children"),
+    Output("tabs-content", "children"),
     Input("tabs-example-graph", "value"),
 )
 def render_content(tab):
@@ -145,7 +177,6 @@ def render_content(tab):
                                 dcc.Loading(
                                     dcc.Graph(
                                         id="salary-vs-experience-level-graph",
-                                        className="graph",
                                     ),
                                     type="cube",
                                 ),
@@ -159,6 +190,7 @@ def render_content(tab):
                                                 for level in experience_levels
                                             ],
                                             options=experience_levels,
+                                            style={"opacity": "100%"},
                                             multi=True,
                                         ),
                                     ],
@@ -229,7 +261,12 @@ def render_content(tab):
                     className="center90",
                 ),
                 html.Div(
-                    [dcc.Loading(dcc.Graph(id="most-frequent-job-titles"), type="cube")]
+                    [
+                        dcc.Loading(
+                            dcc.Graph(id="most-frequent-job-titles"), type="cube"
+                        )
+                    ],
+                    className="center90 margin",
                 ),
             ]
         )
@@ -240,15 +277,28 @@ def render_content(tab):
                 columns=[{"name": i, "id": i} for i in df.columns],
                 data=df.to_dict("records"),
             ),
+            className="black",
         )
 
     elif tab == "about":
         return html.Div(
             [
+                html.H3("Why I chose this dataset?"),
                 html.P(
-                    """This is a dashboard that shows the salary analysis of data scientists."""
-                )
-            ]
+                    """Choosing this data science salary dataset for the term project was motivated by its significance to current job market trends, its relevance to a wide audience in the field of data science, and the rich analytical opportunities it presents. It offers a comprehensive global perspective on aspects like salary trends, employment types, and experience levels across different geographies. This not only allows for an extensive comparative and trend analysis over time but also provides practical insights useful for both job seekers and employers."""
+                ),
+                html.H3("Proveance of the dataset"),
+                html.P(
+                    """The collection methodology for the Data Science Salaries Dataset involves gathering salary information from diverse sources such as industry surveys, job postings, employer reports, and recruitment agencies. Data is typically collected through surveys, online job platforms, and direct communication with companies. Information on job titles, locations, experience levels, skills required, and additional benefits is systematically recorded. The dataset undergoes validation and quality checks to ensure accuracy and reliability."""
+                ),
+                html.P("The dataset is from Kaggle and is found here:"),
+                html.A(
+                    "Data Science Salaries Dataset",
+                    target="_blank",
+                    href="https://www.kaggle.com/datasets/zain280/data-science-salaries",
+                ),
+            ],
+            className="about",
         )
 
 
@@ -277,6 +327,10 @@ def update_graph_1(company_size_dropdown, year_slider):
         color="Company Size",
         title="Salary distribution by Company Size",
     )
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -295,7 +349,6 @@ def update_graph_2(experience_level_dropdown, year_slider):
         filtered_df["Experience Level"].isin(experience_level_dropdown)
     ]
     experience_order = {"EN": "Entry", "MI": "Mid", "SE": "Senior", "EX": "Executive"}
-    # Replace the abbreviations with the full form
     filtered_df["Experience Level"] = filtered_df["Experience Level"].map(
         experience_order
     )
@@ -310,6 +363,10 @@ def update_graph_2(experience_level_dropdown, year_slider):
         category_orders={"Experience Level": experience_order.values()},
     )
 
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(255, 255, 255, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -339,6 +396,10 @@ def update_graph_3(year_slider, number_of_companies_slider):
     fig.update_traces(
         textfont_size=12, textangle=0, textposition="outside", cliponaxis=False
     )
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -360,6 +421,10 @@ def update_graph_4(year_slider):
         title="Top 10 Most Frequent Job Titles",
         labels={"x": "Number of job titles", "y": "Job Title"},
     )
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -381,6 +446,10 @@ def update_pie_chart(year_slider):
         labels={"names": "Country", "values": "Number of companies"},
     )
     fig.update_traces(textposition="inside", textinfo="percent+label")
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -402,6 +471,10 @@ def update_pie_chart2(year_slider):
         labels={"names": "Remote Ratio", "values": "Number of companies"},
     )
     fig.update_traces(textposition="inside", textinfo="percent+label")
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
@@ -423,6 +496,10 @@ def update_pie_chart3(year_slider):
         labels={"names": "Employment Type", "values": "Number of companies"},
     )
     fig.update_traces(textposition="inside", textinfo="percent+label")
+    fig.update_layout(
+        {"plot_bgcolor": "rgba(0, 0, 0, 0)", "paper_bgcolor": "rgba(0, 0, 0, 0)"}
+    )
+    fig.update_layout(font=dict(color="white"))
     return fig
 
 
