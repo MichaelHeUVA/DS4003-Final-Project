@@ -64,3 +64,16 @@ body {
 .white {
     color: white;
 }
+
+.github {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    margin-top: auto;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

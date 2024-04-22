@@ -1,8 +1,7 @@
 # import packages
 import pandas as pd
-import numpy as np
-import seaborn as sns
 from dash import Dash, html, dcc, Output, Input, callback, dash_table
+from dash_iconify import DashIconify
 import plotly.express as px
 from datetime import datetime
 
@@ -287,15 +286,37 @@ def render_content(tab):
                 html.P(
                     """Choosing this data science salary dataset for the term project was motivated by its significance to current job market trends, its relevance to a wide audience in the field of data science, and the rich analytical opportunities it presents. It offers a comprehensive global perspective on aspects like salary trends, employment types, and experience levels across different geographies. This not only allows for an extensive comparative and trend analysis over time but also provides practical insights useful for both job seekers and employers."""
                 ),
-                html.H3("Proveance of the dataset"),
+                html.H3("Provenance of the dataset"),
                 html.P(
                     """The collection methodology for the Data Science Salaries Dataset involves gathering salary information from diverse sources such as industry surveys, job postings, employer reports, and recruitment agencies. Data is typically collected through surveys, online job platforms, and direct communication with companies. Information on job titles, locations, experience levels, skills required, and additional benefits is systematically recorded. The dataset undergoes validation and quality checks to ensure accuracy and reliability."""
                 ),
-                html.P("The dataset is from Kaggle and is found here:"),
-                html.A(
-                    "Data Science Salaries Dataset",
-                    target="_blank",
-                    href="https://www.kaggle.com/datasets/zain280/data-science-salaries",
+                html.Div(
+                    [
+                        html.A(
+                            [
+                                DashIconify(
+                                    icon="devicon:kaggle",
+                                    width=50,
+                                    height=50,
+                                ),
+                            ],
+                            target="_blank",
+                            href="https://www.kaggle.com/datasets/zain280/data-science-salaries",
+                        ),
+                        html.A(
+                            [
+                                DashIconify(
+                                    icon="ion:logo-github",
+                                    width=50,
+                                    height=50,
+                                ),
+                            ],
+                            href="https://github.com/MichaelHeUVA/plotly-dash",
+                            target="_blank",
+                            className="github",
+                        ),
+                    ],
+                    className="flex",
                 ),
             ],
             className="about",
